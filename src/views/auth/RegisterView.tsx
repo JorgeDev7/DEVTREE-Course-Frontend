@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import ErrorMessage from "../../components/ErrorMessage";
+import CTButton from "../../components/ui/CTButton";
 import api from "../../config/axios";
 import { RegisterForm } from "../../types/AuthTypes";
 
@@ -37,7 +38,7 @@ export default function RegisterView() {
       reset();
     } catch (error) {
       if (isAxiosError(error) && error.response) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.errorMessage);
       } else {
         toast.error(
           "Error desconocido al crear la cuenta, por favor intente de nuevo"
@@ -175,41 +176,7 @@ export default function RegisterView() {
           )}
         </div>
 
-        <button
-          type="submit"
-          className={`bg-cyan-400 p-3 text-lg w-full uppercase text-slate-600 rounded-lg font-bold cursor-pointer flex items-center justify-center ${
-            loading ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-        >
-          {loading ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="#fff"
-                d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
-                opacity="0.25"
-              />
-              <path
-                fill="#fff"
-                d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"
-              >
-                <animateTransform
-                  attributeName="transform"
-                  dur="0.75s"
-                  repeatCount="indefinite"
-                  type="rotate"
-                  values="0 12 12;360 12 12"
-                />
-              </path>
-            </svg>
-          ) : (
-            "Crear Cuenta"
-          )}
-        </button>
+        <CTButton loading={loading} text="Crear Cuenta" />
       </form>
 
       <nav className="mt-10">
